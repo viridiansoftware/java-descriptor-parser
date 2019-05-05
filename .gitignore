@@ -1,5 +1,10 @@
 .gradle
-/build/
+build/
+bin/
+.idea/
+out/
+
+java-descriptor-parser-lib/src/main/java/com/viridiansoftware/java/descriptor/antlr/
 
 # Ignore Gradle GUI config
 gradle-app.setting
