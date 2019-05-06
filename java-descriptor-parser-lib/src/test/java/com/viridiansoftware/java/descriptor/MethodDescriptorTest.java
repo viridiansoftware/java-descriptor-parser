@@ -23,6 +23,7 @@ public class MethodDescriptorTest {
 	@Test
 	public void testNoParametersVoidMethod() {
 		final MethodDescriptor methodDescriptor = new MethodDescriptor("()V");
+		Assert.assertEquals(true, methodDescriptor.isVoidMethod());
 		Assert.assertEquals(0, methodDescriptor.getTotalMethodParameters());
 		Assert.assertEquals("V", methodDescriptor.getReturnDescriptor().getText());
 	}
@@ -30,6 +31,7 @@ public class MethodDescriptorTest {
 	@Test
 	public void testParametersVoidMethod() {
 		final MethodDescriptor methodDescriptor = new MethodDescriptor("(ILjava/lang/Object;)V");
+		Assert.assertEquals(true, methodDescriptor.isVoidMethod());
 		Assert.assertEquals(2, methodDescriptor.getTotalMethodParameters());
 		Assert.assertEquals("I", methodDescriptor.getMethodParameter(0).getText());
 		Assert.assertEquals("java/lang/Object", methodDescriptor.getMethodParameter(1).objectType().identifier().getText());
@@ -39,6 +41,7 @@ public class MethodDescriptorTest {
 	@Test
 	public void testNoParametersObjectMethod() {
 		final MethodDescriptor methodDescriptor = new MethodDescriptor("()Ljava/lang/Object;");
+		Assert.assertEquals(false, methodDescriptor.isVoidMethod());
 		Assert.assertEquals(0, methodDescriptor.getTotalMethodParameters());
 		Assert.assertEquals("java/lang/Object", methodDescriptor.getReturnDescriptor().fieldType().objectType().identifier().getText());
 	}
@@ -46,6 +49,7 @@ public class MethodDescriptorTest {
 	@Test
 	public void testParametersObjectMethod() {
 		final MethodDescriptor methodDescriptor = new MethodDescriptor("(IBZ)Ljava/lang/Object;");
+		Assert.assertEquals(false, methodDescriptor.isVoidMethod());
 		Assert.assertEquals(3, methodDescriptor.getTotalMethodParameters());
 		Assert.assertEquals("I", methodDescriptor.getMethodParameter(0).getText());
 		Assert.assertEquals("B", methodDescriptor.getMethodParameter(1).getText());

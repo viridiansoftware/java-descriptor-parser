@@ -45,6 +45,13 @@ public class MethodDescriptor extends DescriptorBaseListener {
 		methodDescriptorContext = ctx;
 	}
 
+	public boolean isVoidMethod() {
+		if(methodDescriptorContext == null) {
+			return false;
+		}
+		return getReturnDescriptor().VoidDescriptor() != null;
+	}
+
 	public int getTotalMethodParameters() {
 		if(methodDescriptorContext == null) {
 			return 0;
