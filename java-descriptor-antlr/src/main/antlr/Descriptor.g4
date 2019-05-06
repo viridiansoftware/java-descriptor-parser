@@ -15,106 +15,38 @@
 //
 grammar Descriptor;
 
-
-//------------ Class Signature ------------
-classSignature
-    : typeParameters? superclassSignature superinterfaceSignature*
+//------------ Field Descriptor ------------
+fieldDescriptor
+    : fieldType
     ;
 
-typeParameters
-    : LT typeParameter+ GT
+fieldType
+    : BaseType
+    | objectType
+    | arrayType
     ;
 
-typeParameter
-    : identifier classBound interfaceBounds?
+objectType
+    : ObjectTypePrefix identifier SEMICOLON
     ;
 
-classBound
-    : COLON referenceTypeSignature?
+arrayType
+    : LEFTBOXBRACKET fieldType
     ;
 
-interfaceBounds
-    : interfaceBound+
+
+//------------ Method Descriptor ------------
+methodDescriptor
+    : LEFTROUNDBRACKET parameterDescriptor* RIGHTROUNDBRACKET returnDescriptor
     ;
 
-interfaceBound
-    : COLON referenceTypeSignature
+parameterDescriptor
+    : fieldType
     ;
 
-superclassSignature
-    : classTypeSignature;
-
-superinterfaceSignature
-    : classTypeSignature;
-
-//------------ Method Signature ------------
-methodSignature
-    : typeParameters? LEFTROUNDBRACKET javaTypeSignature* RIGHTROUNDBRACKET result throwsSignature*
-    ;
-
-result
-    : javaTypeSignature
+returnDescriptor
+    : fieldType
     | VoidDescriptor
-    ;
-
-throwsSignature
-    : CARET classTypeSignature
-    | CARET typeVariableSignature
-    ;
-
-//------------ Field Signature ------------
-fieldSignature
-    : referenceTypeSignature
-    ;
-
-//------------ Type Signatures ------------
-javaTypeSignature
-    : referenceTypeSignature
-    | BaseType
-    ;
-
-referenceTypeSignature
-    : classTypeSignature
-    | typeVariableSignature
-    | arrayTypeSignature
-    ;
-
-classTypeSignature
-    : ObjectType packageSpecifier? simpleClassTypeSignature classTypeSignatureSuffix* SEMICOLON
-    ;
-
-packageSpecifier
-    : identifier FORWARDSLASH packageSpecifier*
-    ;
-
-simpleClassTypeSignature
-    : identifier typeArguments?
-    ;
-
-typeArguments
-    : LT typeArgument+ GT
-    ;
-
-typeArgument
-    : ASTERISK
-    | WildcardIndicator? referenceTypeSignature
-    ;
-
-WildcardIndicator
-    : EXTENDSWILDCARD
-    | SUPERWILDCARD
-    ;
-
-classTypeSignatureSuffix
-    : FULLSTOP simpleClassTypeSignature
-    ;
-
-typeVariableSignature
-    : TypeIndicator identifier SEMICOLON
-    ;
-
-arrayTypeSignature
-    : LEFTBOXBRACKET javaTypeSignature
     ;
 
 LT : '<';
@@ -132,14 +64,14 @@ FORWARDSLASH : '/';
 CARET : '^';
 
 identifier
-	:	(JavaLetterOrDigit | TypeIndicator | ObjectType | BaseType | VoidDescriptor)+
+	:	(JavaLetterOrDigit | TypeIndicator | ObjectTypePrefix | BaseType | VoidDescriptor | FORWARDSLASH)+
 	;
 
 TypeIndicator
     : 'T'
     ;
 
-ObjectType
+ObjectTypePrefix
     : 'L'
     ;
 
