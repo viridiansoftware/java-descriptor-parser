@@ -22,11 +22,19 @@ import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.util.Objects;
+
 public class FieldDescriptor extends DescriptorBaseListener {
+	private final String descriptor;
 	private DescriptorParser.FieldDescriptorContext fieldDescriptorContext;
 
 	public FieldDescriptor(String descriptor) {
 		super();
+		this.descriptor = descriptor;
+
+		if(descriptor == null || descriptor.isEmpty()) {
+			return;
+		}
 
 		final DescriptorLexer lexer = new DescriptorLexer(CharStreams.fromString(descriptor));
 		final DescriptorParser parser = new DescriptorParser(new BufferedTokenStream(lexer));
@@ -47,5 +55,18 @@ public class FieldDescriptor extends DescriptorBaseListener {
 			return null;
 		}
 		return fieldDescriptorContext.fieldType();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof FieldDescriptor)) return false;
+		FieldDescriptor that = (FieldDescriptor) o;
+		return Objects.equals(descriptor, that.descriptor);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(descriptor);
 	}
 }

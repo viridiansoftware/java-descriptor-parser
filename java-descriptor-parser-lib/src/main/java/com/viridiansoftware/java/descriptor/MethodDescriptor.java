@@ -22,11 +22,15 @@ import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import java.util.Objects;
+
 public class MethodDescriptor extends DescriptorBaseListener {
+	private final String descriptor;
 	private DescriptorParser.MethodDescriptorContext methodDescriptorContext;
 
 	public MethodDescriptor(String descriptor) {
 		super();
+		this.descriptor = descriptor;
 
 		if(descriptor == null || descriptor.isEmpty()) {
 			return;
@@ -80,5 +84,18 @@ public class MethodDescriptor extends DescriptorBaseListener {
 			return null;
 		}
 		return methodDescriptorContext.returnDescriptor();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof MethodDescriptor)) return false;
+		MethodDescriptor that = (MethodDescriptor) o;
+		return Objects.equals(descriptor, that.descriptor);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(descriptor);
 	}
 }

@@ -21,6 +21,17 @@ import org.junit.Test;
 public class MethodDescriptorTest {
 
 	@Test
+	public void testEquals() {
+		final MethodDescriptor methodDescriptor1 = new MethodDescriptor("(ILjava/lang/Object;)V");
+		final MethodDescriptor methodDescriptor2 = new MethodDescriptor("(II)B");
+		final MethodDescriptor methodDescriptor3 = new MethodDescriptor("(II)B");
+
+		Assert.assertEquals(false, methodDescriptor1.equals(methodDescriptor2));
+		Assert.assertEquals(false, methodDescriptor1.equals(methodDescriptor3));
+		Assert.assertEquals(methodDescriptor2, methodDescriptor3);
+	}
+
+	@Test
 	public void testNoParametersVoidMethod() {
 		final MethodDescriptor methodDescriptor = new MethodDescriptor("()V");
 		Assert.assertEquals(true, methodDescriptor.isVoidMethod());

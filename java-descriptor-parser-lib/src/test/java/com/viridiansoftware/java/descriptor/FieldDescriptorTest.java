@@ -21,6 +21,17 @@ import org.junit.Test;
 public class FieldDescriptorTest {
 
 	@Test
+	public void testEquals() {
+		final FieldDescriptor fieldDescriptor1 = new FieldDescriptor("Ljava/lang/Object;");
+		final FieldDescriptor fieldDescriptor2 = new FieldDescriptor("B");
+		final FieldDescriptor fieldDescriptor3 = new FieldDescriptor("Ljava/lang/Object;");
+
+		Assert.assertEquals(fieldDescriptor1, fieldDescriptor3);
+		Assert.assertEquals(fieldDescriptor3, fieldDescriptor1);
+		Assert.assertEquals(false, fieldDescriptor1.equals(fieldDescriptor2));
+	}
+
+	@Test
 	public void testObjectType() {
 		final FieldDescriptor fieldDescriptor = new FieldDescriptor("Ljava/lang/Object;");
 		Assert.assertEquals("java/lang/Object", fieldDescriptor.getFieldTypeContext().objectType().identifier().getText());
