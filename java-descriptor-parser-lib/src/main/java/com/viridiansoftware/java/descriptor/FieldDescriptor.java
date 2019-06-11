@@ -57,6 +57,10 @@ public class FieldDescriptor extends DescriptorBaseListener {
 		return fieldDescriptorContext.fieldType();
 	}
 
+	public String getDescriptorString() {
+		return descriptor;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;

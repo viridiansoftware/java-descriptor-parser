@@ -86,6 +86,10 @@ public class MethodDescriptor extends DescriptorBaseListener {
 		return methodDescriptorContext.returnDescriptor();
 	}
 
+	public String getDescriptorString() {
+		return descriptor;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
