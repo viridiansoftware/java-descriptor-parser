@@ -67,4 +67,24 @@ public class MethodDescriptorTest {
 		Assert.assertEquals("Z", methodDescriptor.getMethodParameter(2).getText());
 		Assert.assertEquals("java/lang/Object", methodDescriptor.getReturnDescriptor().fieldType().objectType().identifier().getText());
 	}
+
+	@Test
+	public void testParametersObjectMethod2() {
+		final MethodDescriptor methodDescriptor = new MethodDescriptor("(Lsun/security/ec/point/Point;I)Lsun/security/ec/point/MutablePoint;");
+		Assert.assertEquals(false, methodDescriptor.isVoidMethod());
+		Assert.assertEquals(2, methodDescriptor.getTotalMethodParameters());
+		Assert.assertEquals("Lsun/security/ec/point/Point;", methodDescriptor.getMethodParameter(0).getText());
+		Assert.assertEquals("I", methodDescriptor.getMethodParameter(1).getText());
+		Assert.assertEquals("sun/security/ec/point/MutablePoint", methodDescriptor.getReturnDescriptor().fieldType().objectType().identifier().getText());
+	}
+
+	@Test
+	public void testParametersObjectMethodEnclosedClass() {
+		final MethodDescriptor methodDescriptor = new MethodDescriptor("(Lsun/security/ec/point/Point;I)Lsun/security/ec/point/ProjectivePoint$Mutable;");
+		Assert.assertEquals(false, methodDescriptor.isVoidMethod());
+		Assert.assertEquals(2, methodDescriptor.getTotalMethodParameters());
+		Assert.assertEquals("Lsun/security/ec/point/Point;", methodDescriptor.getMethodParameter(0).getText());
+		Assert.assertEquals("I", methodDescriptor.getMethodParameter(1).getText());
+		Assert.assertEquals("sun/security/ec/point/ProjectivePoint$Mutable", methodDescriptor.getReturnDescriptor().fieldType().objectType().identifier().getText());
+	}
 }
